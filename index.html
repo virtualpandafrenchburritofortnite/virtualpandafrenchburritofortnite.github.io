@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>egg</title>
+	<meta name="description" content="egg">
+
+	<meta name="theme-color" content="#F0EAD6">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+	<style>
+		:root {
+			--egg0: #f0ead6;
+			--egg1: #ffefae;
+			--egg2: #ffd79a;
+			--egg3: #fffcec;
+			--egg4: #ffffff;
+			--egg5: #ffd963;
+			--notegg0: #00000023;
+		}
+		html,
+		body {
+			background-color: var(--egg0);
+			font-family: 'Press Start 2P', cursive;
+		}
+
+		body {
+			display: flex;
+			justify-content: center;
+			margin: 0px;
+		}
+
+		#notifycookies {
+			height: 80vh;
+			background-color: var(--egg2);
+			position: fixed;
+			bottom: 0px;
+			font-size: 1.7em;
+			overflow: scroll;
+			padding: 0.3ex;
+			z-index: 99;
+		}
+
+		#adcontainer {
+			position: fixed;
+			top: 0px;
+			left: 0px;
+			width: 100vw;
+			height: 100vh;
+			background-color: var(--notegg0);
+			z-index: 95;
+		}
+		#adcontainer > div {
+			background-color: var(--egg3);
+			padding: 10px;
+		}
+		#ytifrad {
+			width: 100vw;
+			height: 60vh;
+		}
+	</style>
+</head>
+
+<body>
+	egg
+	<div id="adcontainer">
+			<div>Please watch this ad before you continue to our site</div>
+			<iframe id="ytifrad" src="https://www.youtube-nocookie.com/embed/bDhn3sjy4FA?rel=0&amp;controls=0&amp;showinfo=0&amp;enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+	</div>
+	<script>
+		const ytifrad = document.querySelector("#ytifrad");
+		window.onmessage = (ev) => {
+			if (!ev.data) return;
+			const data =JSON.parse(ev.data);
+			if (!(data.info != null && data.info.playerState != null)) return;
+
+			if (data.info.playerState == 0) {
+				console.log("DONE");
+				window.dispatchEvent(new Event("ytifradfinished"));
+			}
+		}
+		ytifrad.onload = () => { ytifrad.contentWindow.postMessage(JSON.stringify({event: "listening", id: "ytifrad"}), "*") }
+		window.addEventListener("ytifradfinished", () => { document.querySelector("#adcontainer").style.display = "none"; });
+	</script>
+	<div id="notifycookies"><button>close</button>This website uses cookies to improve user experience. By using our website you consent to all
+		cookies in accordance with our Cookie Policy. If you do not agree please do not visit our website.</div>
+	<script>
+		setTimeout(() => { document.querySelector("#notifycookies").style.display = "none" }, 20000);
+		document.querySelector("#notifycookies > button").addEventListener("click", () => {
+			ytifrad.contentWindow.postMessage(JSON.stringify({event: "command", func: "playVideo", args: [], id: "ytifrad"}), "*")
+		});
+	</script>
+</body>
+
+</html>
