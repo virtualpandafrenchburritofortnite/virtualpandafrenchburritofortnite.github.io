@@ -47,7 +47,7 @@
 			z-index: 99;
 		}
 
-		#adcontainer {
+		#aPPPdcontainer {
 			position: fixed;
 			top: 0px;
 			left: 0px;
@@ -56,7 +56,7 @@
 			background-color: var(--notegg0);
 			z-index: 95;
 		}
-		#adcontainer > div {
+		#aPPPdcontainer > div {
 			background-color: var(--egg3);
 			padding: 10px;
 		}
@@ -69,7 +69,7 @@
 
 <body>
 	egg
-	<div id="adcontainer">
+	<div id="aPPPdcontainer">
 			<div>Please watch this ad before you continue to our site</div>
 			<iframe id="ytifrad" src="https://www.youtube-nocookie.com/embed/bDhn3sjy4FA?rel=0&amp;controls=0&amp;showinfo=0&amp;enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 	</div>
@@ -86,7 +86,7 @@
 			}
 		}
 		ytifrad.onload = () => { ytifrad.contentWindow.postMessage(JSON.stringify({event: "listening", id: "ytifrad"}), "*") }
-		window.addEventListener("ytifradfinished", () => { document.querySelector("#adcontainer").style.display = "none"; });
+		window.addEventListener("ytifradfinished", () => { document.querySelector("#aPPPdcontainer").style.display = "none"; });
 	</script>
 	<div id="notifycookies"><button>close</button>This website uses cookies to improve user experience. By using our website you consent to all
 		cookies in accordance with our Cookie Policy. If you do not agree please do not visit our website.</div>
